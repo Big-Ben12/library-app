@@ -12,50 +12,40 @@
     <div class="main">
         <div class="header-container">
             <h1><span class="material-symbols-outlined">book_5</span>LIBRARY</h1>
-            <a id="add-book"><span class="material-symbols-outlined">add</span>Add Book</a>
+            <a id="add-book"><span class="material-symbols-outlined">add</span>New Book</a>
         </div>
         <div id="library-container">
-        
+            <div id="books">
+
+            </div>
         </div>
     </div>
 
-    
-
-    <!-- A modal dialog containing a form -->
     <dialog id="addBookDialog">
         <h3>Add book to your library</h3>
-    <form class="addBookToLibraryForm">
-        <div class="form-group">
-            <label class="" for="title">Title</label>
-            <input type="text" name="title" id="title">
-        </div>
-        <div class="form-group">
-            <label for="author">Author</label>
-            <input type="text" name="author" id="author">
-        </div>
-        <div class="form-group">
-            <label for="pages">No. of Pages</label>
-            <input type="text" name="pages" id="pages" style="width: 50px">
-        </div>
-        <div class="form-group">
-            <label for="isRead">Is Read</label>
-            <select name="isRead" id="isRead" style="width: 50px">
-                <option value="default">Choose…</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>
-        </div>
-        <div>
-            <button value="cancel" formmethod="dialog">Cancel</button>
-            <button id="confirmBtn" value="default">Confirm</button>
-        </div>
-
-    </form>
+        <form id="addBookToLibraryForm">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" name="title" id="title" required>
+            </div>
+            <div class="form-group">
+                <label for="author">Author</label>
+                <input type="text" name="author" id="author" required>
+            </div>
+            <div class="form-group">
+                <label for="pages">No. of Pages</label>
+                <input type="number" name="pages" id="pages" style="width: 50px" required>
+            </div>
+            <div class="form-group">
+                <label for="hasRead">Has Read</label>
+                <input type="checkbox" name="hasRead" id="hasRead">
+            </div>
+            <div class="formBtns">
+                <button value="cancel" formmethod="dialog">Cancel</button>
+                <button id="confirmBtn" value="default">Confirm</button>
+            </div>
+        </form>
     </dialog>
-<!-- <p>
-  <button id="showDialog">Show the dialog</button>
-</p>
-<output></output> -->
 
     <script src="script.js"></script>
 </body>
