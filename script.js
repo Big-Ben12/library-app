@@ -120,18 +120,82 @@ addBookToLibraryButton.addEventListener("click", () => {
 
 // Handle form submission
 const addBookToLibraryForm = document.getElementById("addBookToLibraryForm");
+
+// Utility: show error
+function showError(input, message) {
+  const errorElement = document.getElementById(`${input.id}-error`);
+  errorElement.textContent = message;
+  input.classList.add("invalid");
+  input.classList.remove("valid");
+}
+
+// Utility: clear error
+function clearError(input) {
+  const errorElement = document.getElementById(`${input.id}-error`);
+  errorElement.textContent = "";
+  input.classList.remove("invalid");
+  input.classList.add("valid");
+}
+
+// Validation function for individual fields
+function validateField(input) {
+  const value = input.value.trim();
+  const id = input.id;
+
+  if (id === "title" && value === "") {
+    showError(input, "The book title must be filled!");
+    return false;
+  }
+
+  if (id === "author" && value === "") {
+    showError(input, "The author name must be filled!");
+    return false;
+  }
+
+  if (id === "pages") {
+    if (value === "") {
+      showError(input, "Number of pages must be filled!");
+      return false;
+    } else if (parseInt(value, 10) <= 0) {
+      showError(input, "Pages must be greater than zero!");
+      return false;
+    }
+  }
+
+  // If valid, clear error
+  clearError(input);
+  return true;
+}
+
+// Attach live validation listeners
+["title", "author", "pages"].forEach((id) => {
+  const input = document.getElementById(id);
+  input.addEventListener("input", () => validateField(input));
+});
+
+// Handle submit
 addBookToLibraryForm.addEventListener("submit", function (event) {
   event.preventDefault();
 
-  const title = addBookToLibraryForm.elements["title"].value;
-  const author = addBookToLibraryForm.elements["author"].value;
-  const pages = parseInt(addBookToLibraryForm.elements["pages"].value, 10);
-  const hasRead = addBookToLibraryForm.elements["hasRead"].checked;
+  const titleInput = document.getElementById("title");
+  const authorInput = document.getElementById("author");
+  const pagesInput = document.getElementById("pages");
 
-  const newBook = new Book(title, author, pages, hasRead);
-  library.push(newBook);
+  const isTitleValid = validateField(titleInput);
+  const isAuthorValid = validateField(authorInput);
+  const isPagesValid = validateField(pagesInput);
 
-  displayBooks();
-  addBookToLibraryForm.reset();
-  addBookDialog.close();
+  if (isTitleValid && isAuthorValid && isPagesValid) {
+    const title = titleInput.value.trim();
+    const author = authorInput.value.trim();
+    const pages = parseInt(pagesInput.value, 10);
+    const hasRead = addBookToLibraryForm.elements["hasRead"].checked;
+
+    const newBook = new Book(title, author, pages, hasRead);
+    library.push(newBook);
+
+    displayBooks();
+    addBookToLibraryForm.reset();
+    addBookDialog.close();
+  }
 });
