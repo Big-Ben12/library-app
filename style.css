@@ -115,3 +115,29 @@ body {
 .formBtns {
   margin: 1rem 0;
 }
+
+/* Default state */
+input {
+  border: 1px solid #ccc;
+  padding: 6px;
+  border-radius: 4px;
+}
+
+/* Invalid fields */
+input.invalid {
+  border: 2px solid red;
+  background-color: #ffe6e6;
+}
+
+/* Valid fields */
+input.valid {
+  border: 2px solid green;
+  background-color: #e6ffe6;
+}
+
+/* Error message style */
+.error-message {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
